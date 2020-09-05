@@ -1,5 +1,6 @@
 let jwt = require("jsonwebtoken");
-let secret = process.env.JWT_SECRET;
+const { config } = require("../config/appConfig");
+let secret = config.JWT_SECRET;
 let generateToken = (data, callback) => {
   try {
     

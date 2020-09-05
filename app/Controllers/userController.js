@@ -12,6 +12,7 @@ let loginUser = (req, res) => {
       if (req.body.email) {
         userModel.findOne({ email: req.body.email }).exec((err, result) => {
           if (result) {
+            console.log(result)
             resolve(result);
           } else if (checkLib.isEmpty(result)) {
             let apiResponse = response.generate(
