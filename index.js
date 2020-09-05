@@ -6,7 +6,7 @@ var multer = require("multer");
 let fs = require("fs");
 let logger = require("pino")();
 let routeNotFound = require("./app/Middlewares/routeValidation");
-let { config } = require("./app/config/appConfig");
+let { config } = require('./app/config/appConfig')
 const { Router } = require("express");
 const bodyParser = require("body-parser");
 const app = express();
@@ -40,9 +40,8 @@ if (~files.split(",")[0].indexOf(".js") && files.split(",")[1].indexOf(".js")) {
 files = files.substring(0, files.length - 1);
 app.use(routeNotFound.routeNotFound);
 
-app.listen(process.env.PORT || 3000, () => {
-  //mongoose.connect(process.env.MONGODB_URL,{useNewUrlParser:true, useUnifiedTopology:true, useMongoClient: true} );
-  if (config.env == "prod") {
+app.listen(config.PORT, () => {
+   if (config.env == "prod") {
     mongoose.connect(config.mongodb.produrl, { useNewUrlParser: true });
     mongoose.connection
       .once("open", function () {
