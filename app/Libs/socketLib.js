@@ -18,9 +18,11 @@ console.log(authToken);
             console.log(user);
             let currentUser=user;
             socket.userId=currentUser._id;
+            socket.name=currentUser.name;
             let fullName=`${currentUser.name}`
             console.log(`${fullName} is online`);
             socket.emit(currentUser._id,`${fullName} is online`)
+            myio.emit('userOnline',`${fullName} is now online`)
       let userObj= {userId:currentUser._id,name:fullName}
 onlineUsers.push(userObj);
 console.log(onlineUsers)
@@ -38,6 +40,9 @@ socket.on('disconnect', () => {
  let removeUserId=   onlineUsers.map(function(user){return user.userId}).indexOf(socket.userId)
 onlineUsers.splice(removeUserId,1)
 console.log(onlineUsers)
+myio.emit('userOffline',`${socket.name} has gone offline`)
+myio.emit('userlist', onlineUsers)
+
   })
 })
 }
