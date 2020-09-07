@@ -11,7 +11,7 @@ const listRoutes = (app) => {
   app.post(
     apiConfig.config.apiVersion + "/create/list",
 
-    bugController.createBug
+    bugController.createList
   );
 
 

@@ -19,15 +19,9 @@ const storage = multer.diskStorage({
   },
 });
 
-let createBug = (req, res) => {
-  console.log(req.body.tasks[0].subtask[0].description)
-  for (var key in req.body) {
-    if (req.body.hasOwnProperty(key)) {
-      item = req.body[key];
-      console.log(item);
-    }
-  }
-  const createList = new listModel(req.body).save((error, data) => {
+let createList = (req, res) => {
+
+  new listModel(req.body).save((error, data) => {
     if (data) {
       let apiResponse = response.generate(false, null, 201, data);
       res.status(201).send(apiResponse);
@@ -41,6 +35,6 @@ let createBug = (req, res) => {
 
 
 module.exports = {
-  createBug: createList,
+  createList: createList,
 
 };
