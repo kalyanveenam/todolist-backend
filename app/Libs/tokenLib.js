@@ -13,6 +13,16 @@ let generateToken = (data, callback) => {
     callback(err, null);
   }
 };
+let verifyTokenWithoutSecret = (authToken, cb) => {
+  jwt.verify(authToken, secret, (err, user) => {
+    if (err) {
+      cb(null, err);
+    } else {
+      cb(user, null);
+    }
+  });
+};
 module.exports = {
   generateToken: generateToken,
+  verifyTokenWithoutSecret:verifyTokenWithoutSecret
 };

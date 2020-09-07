@@ -9,6 +9,7 @@ let routeNotFound = require("./app/Middlewares/routeValidation");
 let { config } = require('./app/config/appConfig')
 const { Router } = require("express");
 const bodyParser = require("body-parser");
+let http= require('http');
 const app = express();
 logger.info("hello world");
 var corsOptions = {
@@ -39,8 +40,10 @@ if (~files.split(",")[0].indexOf(".js") && files.split(",")[1].indexOf(".js")) {
 
 files = files.substring(0, files.length - 1);
 app.use(routeNotFound.routeNotFound);
-
-app.listen(config.PORT, () => {
+const server= http.createServer(app);
+let setSocket=require('./app/Libs/socketLib');
+setSocket.setService(server);
+server.listen(config.PORT, () => {
    if (config.env == "prod") {
     mongoose.connect(config.mongodb.produrl, { useNewUrlParser: true });
     mongoose.connection
