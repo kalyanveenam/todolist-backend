@@ -6,10 +6,14 @@ var multer = require("multer");
 let fs = require("fs");
 let logger = require("pino")();
 let routeNotFound = require("./app/Middlewares/routeValidation");
-let { config } = require('./app/config/appConfig')
-const { Router } = require("express");
+let {
+  config
+} = require('./app/config/appConfig')
+const {
+  Router
+} = require("express");
 const bodyParser = require("body-parser");
-let http= require('http');
+let http = require('http');
 const app = express();
 logger.info("hello world");
 var corsOptions = {
@@ -33,37 +37,41 @@ fs.readdirSync(routerPath).forEach(function (file) {
 files.slice(0, -1);
 if (~files.split(",")[0].indexOf(".js") && files.split(",")[1].indexOf(".js")) {
   let userRoute = require(path.join(routerPath, files.split(",")[1]));
-  let bugRoute = require(routerPath + "/" + files.split(",")[0]);
+  let listRoute = require(routerPath + "/" + files.split(",")[0]);
   userRoute.userRoutes(app);
-  bugRoute.bugRoutes(app);
+  listRoute.listRoutes(app);
 }
 
 files = files.substring(0, files.length - 1);
 app.use(routeNotFound.routeNotFound);
-const server= http.createServer(app);
-let setSocket=require('./app/Libs/socketLib');
+const server = http.createServer(app);
+let setSocket = require('./app/Libs/socketLib');
 setSocket.setService(server);
 server.listen(config.PORT, () => {
-   if (config.env == "prod") {
-    mongoose.connect(config.mongodb.produrl, { useNewUrlParser: true });
+  if (config.env == "prod") {
+    mongoose.connect(config.mongodb.produrl, {
+      useNewUrlParser: true
+    });
     mongoose.connection
       .once("open", function () {
 
       })
       .on("error", function (error) {
-      
+
       });
   } else {
     console.log('coming here')
-    mongoose.connect(config.mongodb.localurl, { useNewUrlParser: true });
+    mongoose.connect(config.mongodb.localurl, {
+      useNewUrlParser: true
+    });
     mongoose.connection
       .once("open", function () {
-      
+
       })
       .on("error", function (error) {
-       
+
       });
   }
 
-  
+
 });
