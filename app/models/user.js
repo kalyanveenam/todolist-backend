@@ -18,14 +18,10 @@ let userSchema = new mySchema({
     required: true,
   },
 });
-userSchema.virtual("userBugs", {
-  ref: "Trackers",
+userSchema.virtual("userLists", {
+  ref: "list",
   localField: "_id",
   foreignField: "owner",
 });
-userSchema.virtual("watchedBugs", {
-  ref: "watcher",
-  localField: "_id",
-  foreignField: "watchedUser",
-});
+
 module.exports = Mongoose.model("users", userSchema);

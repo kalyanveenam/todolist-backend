@@ -5,19 +5,6 @@ const userModel = Mongoose.model("users");
 
 const multer = require("multer");
 const path = require("path");
-const attachments = require("../models/attachments");
-const {
-  title
-} = require("process");
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "../attachments/"));
-  },
-  // By default, multer removes file extensions so let's add them back
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
 
 let createList = (req, res) => {
 
@@ -30,11 +17,20 @@ let createList = (req, res) => {
       res.status(404).send(apiResponse);
     }
   });
+
+};
+let getAlllists = async (req, res) => {
+  let user = await userModel.findById(req.user._id);
+
+
+  await user.populate("userLists").execPopulate();
+  let apiResponse = response.generate(false, null, 200, user.userLists);
+  res.status(200).send(apiResponse);
 };
 
 
 
 module.exports = {
   createList: createList,
-
+  getAlllists: getAlllists
 };
