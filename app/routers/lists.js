@@ -17,6 +17,17 @@ const listRoutes = (app) => {
     apiConfig.config.apiVersion + "/get/list", auth.authValidation,
     bugController.getAlllists
   )
+  app.post(
+    apiConfig.config.apiVersion+"/send/request",
+    auth.authValidation,
+    bugController.sendRequest
+  )
+  app.get(
+    apiConfig.config.apiVersion+"/list/friends",
+    auth.authValidation,
+    bugController.getFriendRequests
+    
+  )
 
 
 };

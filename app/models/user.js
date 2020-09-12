@@ -23,5 +23,10 @@ userSchema.virtual("userLists", {
   localField: "_id",
   foreignField: "owner",
 });
+userSchema.virtual("friendRequests",{
+ref:'friends',
+localField:'_id',
+foreignField:'toUser'
+})
 
 module.exports = Mongoose.model("users", userSchema);
