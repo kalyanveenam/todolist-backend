@@ -46,6 +46,10 @@ let sendRequest = (req, res) => {
   });
 
 };
+let updateRequest = (req, res) => {
+
+    
+}
 let getFriendRequests = async (req, res) => {
   let friendlist = await friendModel.find({ $or:[{fromUser: req.user._id}, {toUser: req.user._id}],status: req.query.status} )
    let apiResponse = response.generate(false, null, 200, user);
