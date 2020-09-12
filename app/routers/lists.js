@@ -28,7 +28,12 @@ const listRoutes = (app) => {
     bugController.getFriendRequests
     
   )
+app.put(
+  apiConfig.config.apiVersion+"/update/list",
+  auth.authValidation,
+  bugController.updateList
 
+)
 
 };
 module.exports = {
