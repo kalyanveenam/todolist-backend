@@ -27,7 +27,10 @@ console.log(authToken);
 onlineUsers.push(userObj);
 console.log(onlineUsers)
 myio.emit('userlist', onlineUsers)
-
+socket.on('create-list',(data)=>{
+    myio.emit('list-created',data)
+    
+})
 
         }
         else{
