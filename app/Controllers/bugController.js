@@ -47,16 +47,28 @@ let sendRequest = (req, res) => {
 
 };
 let updateList = async (req, res) => {
-  let lists =  await listModel.find();
+  let user = await userModel.findById(req.user._id);
+  await user.populate("userLists").execPopulate();
+  let lists = user.userLists;
   for(let i in req.body){
     let listId=req.body[i].list_id;
     let list=lists[listId];
     let listObjectId = list['_id'];
 let listMongoose = await listModel.findById(listObjectId);
 if(req.body[i].type=='list'){
+  if(req.body[i].field && req.body[i].field =='completed')
+  listMongoose['isCompleted']=req.body[i].value;
+  else if(req.body[i].field && req.body[i].field =='delete')
+  listMongoose.delete();
+  else
   listMongoose['title']=req.body[i].value;
 }
 else if(req.body[i].type=='task'){
+  if(req.body[i].field && req.body[i].field =='completed')
+  listMongoose['tasks'][req.body[i]['task_id']]['isCompleted']=req.body[i].value;
+  else if(req.body[i].field && req.body[i].field =='delete')
+  listMongoose['tasks'].splice([req.body[i]['task_id']],1);
+  else
   listMongoose['tasks'][req.body[i]['task_id']]['title']=req.body[i].value;
 }
 else if(req.body[i].type=='subtask'){
