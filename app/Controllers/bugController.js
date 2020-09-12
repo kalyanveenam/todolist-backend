@@ -60,6 +60,9 @@ else if(req.body[i].type=='task'){
   listMongoose['tasks'][req.body[i]['task_id']]['title']=req.body[i].value;
 }
 else if(req.body[i].type=='subtask'){
+  if(req.body[i].field && req.body[i].field =='completed')
+  listMongoose['tasks'][req.body[i]['task_id']]['subtask'][req.body[i]['subtask_id']]['isCompleted']=req.body[i].value;
+  else 
   listMongoose['tasks'][req.body[i]['task_id']]['subtask'][req.body[i]['subtask_id']]['description']=req.body[i].value;
 }
 listMongoose.save();
