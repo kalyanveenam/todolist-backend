@@ -28,7 +28,7 @@ let getAlllists = async (req, res) => {
   res.status(200).send(apiResponse);
 };
 let sendRequest = async(req, res) => {
-  let friendlist = await friendModel.find({ $or:[{fromUser: req.user._id}, {toUser: req.body._id}]},(error,result)=>{
+  let friendlist = await friendModel.find({ $and:[{fromUser: req.user._id}, {toUser: req.body._id}]},(error,result)=>{
     
     if(check.isEmpty(result)){
       new friendModel({
