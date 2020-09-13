@@ -126,6 +126,5 @@ module.exports = {
   getFriendRequests:getFriendRequests,
   updateList:updateList,
   updateFriendRequest:updateFriendRequest,
-  getListByFriend:getListByFriend,
   getListsById:getListsById
 };
