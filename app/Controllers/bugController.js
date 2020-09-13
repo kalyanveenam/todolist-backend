@@ -5,7 +5,7 @@ const userModel = Mongoose.model("users");
 const friendModel=Mongoose.model('friends')
 const multer = require("multer");
 const path = require("path");
-
+const check= require('../Libs/checkLib')
 let createList = (req, res) => {
 
   new listModel(req.body).save((error, data) => {
@@ -27,24 +27,38 @@ let getAlllists = async (req, res) => {
   let apiResponse = response.generate(false, null, 200, user.userLists);
   res.status(200).send(apiResponse);
 };
-let sendRequest = (req, res) => {
-
-  new friendModel({
-    fromUser: req.user._id,
-    toUser:req.body.to,
-    status: req.body.status,
-    recieverName:req.body.recieverName,
-    senderName:req.user.name
-  }).save((error, data) => {
-    if (data) {
-      let apiResponse = response.generate(false, null, 201, data);
-      res.status(201).send(apiResponse);
-    } else {
-      let apiResponse = response.generate(true, error, 404, null);
-      res.status(404).send(apiResponse);
+let sendRequest = async(req, res) => {
+  let friendlist = await friendModel.find({ $or:[{fromUser: req.user._id}, {toUser: req.body._id}]},(error,result)=>{
+    
+    if(check.isEmpty(result)){
+      new friendModel({
+        fromUser: req.user._id,
+        toUser:req.body.to,
+        status: req.body.status,
+        recieverName:req.body.recieverName,
+        senderName:req.user.name
+      }).save((error, data) => {
+        if (data) {
+          let apiResponse = response.generate(false, null, 201, data);
+          res.status(201).send(apiResponse);
+        } else {
+          let apiResponse = response.generate(true, error, 404, null);
+          res.status(404).send(apiResponse);
+        }
+      });
+    
+    
     }
-  });
+    
+    
+   else{
+   //  let apiResponse = response.generate(true, null, 201, "Request already sent");
+      res.status(404).send("Friend request already sent");
 
+    }
+
+  } ) 
+ 
 };
 let updateList = async (req, res) => {
   let user = await userModel.findById(req.user._id);
