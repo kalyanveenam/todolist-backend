@@ -60,6 +60,14 @@ let sendRequest = async(req, res) => {
   } ) 
  
 };
+let getListsById = async (req, res) => {
+  let user = await userModel.findById(req.query.id);
+
+
+  await user.populate("userLists").execPopulate();
+  let apiResponse = response.generate(false, null, 200, user.userLists);
+  res.status(200).send(apiResponse);
+};
 let updateList = async (req, res) => {
   let user = await userModel.findById(req.user._id);
   await user.populate("userLists").execPopulate();
@@ -111,12 +119,13 @@ friendlist.save();
 }
 
 
-
 module.exports = {
   createList: createList,
   getAlllists: getAlllists,
   sendRequest:sendRequest,
   getFriendRequests:getFriendRequests,
   updateList:updateList,
-  updateFriendRequest:updateFriendRequest
+  updateFriendRequest:updateFriendRequest,
+  getListByFriend:getListByFriend,
+  getListsById:getListsById
 };

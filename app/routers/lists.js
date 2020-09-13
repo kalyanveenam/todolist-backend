@@ -17,6 +17,10 @@ const listRoutes = (app) => {
     apiConfig.config.apiVersion + "/get/list", auth.authValidation,
     bugController.getAlllists
   )
+  app.get(
+    apiConfig.config.apiVersion + "/get/listbyid", auth.authValidation,
+    bugController.getListsById
+  )
   app.post(
     apiConfig.config.apiVersion+"/send/request",
     auth.authValidation,
