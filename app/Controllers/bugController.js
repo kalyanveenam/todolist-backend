@@ -84,7 +84,7 @@ listMongoose.save();
 }
 let getFriendRequests = async (req, res) => {
   let friendlist = await friendModel.find({ $or:[{fromUser: req.user._id}, {toUser: req.user._id}],status: req.query.status} )
-   let apiResponse = response.generate(false, null, 200, user);
+   let apiResponse = response.generate(false, null, 200, friendlist);
   res.status(200).send(apiResponse);
 };
 
