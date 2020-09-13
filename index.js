@@ -1,8 +1,8 @@
 let express = require("express");
 let path = require("path");
 let mongoose = require("mongoose");
-var cors = require("cors");
-var multer = require("multer");
+let cors = require("cors");
+let multer = require("multer");
 let fs = require("fs");
 let logger = require("pino")();
 let routeNotFound = require("./app/Middlewares/routeValidation");
@@ -16,7 +16,7 @@ const bodyParser = require("body-parser");
 let http = require('http');
 const app = express();
 logger.info("hello world");
-var corsOptions = {
+let corsOptions = {
   origin: "*",
   optionsSuccessStatus: 200,
 };
@@ -30,7 +30,7 @@ fs.readdirSync(modelPath).forEach(function (file) {
   }
 });
 let routerPath = path.join(__dirname, "./app/routers");
-var files = "";
+let files = "";
 fs.readdirSync(routerPath).forEach(function (file) {
   files += file + ",";
 });

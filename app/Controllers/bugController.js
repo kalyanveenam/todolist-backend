@@ -117,6 +117,11 @@ friendlist.save();
  res.send(friendlist);
 
 }
+let getAcceptedFriendRequests = async (req, res) => {
+  let friendlist = await friendModel.find({status:'accept'} );
+   let apiResponse = response.generate(false, null, 200, friendlist);
+  res.status(200).send(apiResponse);
+};
 
 
 module.exports = {
@@ -126,5 +131,6 @@ module.exports = {
   getFriendRequests:getFriendRequests,
   updateList:updateList,
   updateFriendRequest:updateFriendRequest,
-  getListsById:getListsById
+  getListsById:getListsById,
+  getAcceptedFriendRequests:getAcceptedFriendRequests
 };

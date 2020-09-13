@@ -4,7 +4,7 @@ let secret = config.JWT_SECRET;
 let generateToken = (data, callback) => {
   try {
     
-    var tokenDetails = {
+    let tokenDetails = {
       token: jwt.sign(data.toJSON(), secret),
       secret: secret,
     };

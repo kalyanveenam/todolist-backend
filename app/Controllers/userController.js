@@ -219,7 +219,7 @@ let getAllUsers = (req, res) => {
   });
 };
 let sendEmail = (req, res) => {
-  var info = emailHelper.sendMail(req.body.to, req.body.subject, req.body.text);
+  let info = emailHelper.sendMail(req.body.to, req.body.subject, req.body.text);
   info
     .then((result) => {
       let apiResponse = response.generate(false, null, 200, "Email Sent");
@@ -231,7 +231,7 @@ let sendEmail = (req, res) => {
     });
 };
 let forgotPassword = async (req, res) => {
-  var newPassword = Math.random().toString(20).substr(2, 10);
+  let newPassword = Math.random().toString(20).substr(2, 10);
   let apiResponse;
   try {
     let user = await userModel.find(
