@@ -77,7 +77,9 @@ const userRoutes = (app) => {
  *  @apiSuccessExample {json} Success-Response:
 
  */
+
 };
+
 
 module.exports = {
   userRoutes: userRoutes,
