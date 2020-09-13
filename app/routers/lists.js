@@ -34,6 +34,11 @@ app.put(
   bugController.updateList
 
 )
+app.put(
+  apiConfig.config.apiVersion+"/update/status",
+  auth.authValidation,
+  bugController.updateFriendRequest
+)
 
 };
 module.exports = {
