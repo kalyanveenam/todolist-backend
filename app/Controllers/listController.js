@@ -122,7 +122,11 @@ let getAcceptedFriendRequests = async (req, res) => {
    let apiResponse = response.generate(false, null, 200, friendlist);
   res.status(200).send(apiResponse);
 };
-
+let getAllUsers = async (req, res) => {
+  let user = await userModel.find();
+   let apiResponse = response.generate(false, null, 200, user);
+  res.status(200).send(apiResponse);
+};
 
 module.exports = {
   createList: createList,
@@ -132,5 +136,6 @@ module.exports = {
   updateList:updateList,
   updateFriendRequest:updateFriendRequest,
   getListsById:getListsById,
-  getAcceptedFriendRequests:getAcceptedFriendRequests
+  getAcceptedFriendRequests:getAcceptedFriendRequests,
+  getAllUsers:getAllUsers
 };
