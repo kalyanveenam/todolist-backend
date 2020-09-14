@@ -69,7 +69,7 @@ let getListsById = async (req, res) => {
   res.status(200).send(apiResponse);
 };
 let updateList = async (req, res) => {
-  let user = await userModel.findById(req.user._id);
+  let user = await userModel.findById(req.body.id);
   await user.populate("userLists").execPopulate();
   let lists = user.userLists;
   for(let i in req.body){
