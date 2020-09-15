@@ -29,7 +29,7 @@ let setService = (server) => {
                     myio.emit('userlist', onlineUsers)
                 
                     // socket.on('friend-req',(data)=>{
-                    //     console.log(data);
+                    //  
                     // })
 
                 } else {
@@ -42,7 +42,7 @@ let setService = (server) => {
             })
         })
           socket.on('create-list', (data) => {
-                    console.log(data)
+                    
                        myio.emit('list-created', data)
 
                    })
